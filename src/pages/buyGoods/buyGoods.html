@@ -1,0 +1,125 @@
+<ion-header>
+    <ion-toolbar color="yanbao">
+        <ion-buttons start>
+          <button ion-button icon-only (click)="goToBackPage()">
+            <ion-icon name="arrow-back"></ion-icon>
+          </button>
+        </ion-buttons>
+        <ion-title center>确认订单</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content style="background:rgb(229, 229, 229)">
+    <div *ngIf="goodsInfo && !isShowPayPw">
+        <ion-grid style="background:#fff;padding:0;">
+            <ion-row>
+                <ion-col style="flex: 0 0 25%;max-width: 25%;"><img src="{{imgUrl}}{{goodsInfo.icon}}" /></ion-col>
+                <ion-col style="flex: 0 0 75%;max-width: 75%;">
+                    <div>{{goodsInfo.name}}</div>
+                    <div>
+                        <div class="score">￥{{commonService.toNumber(goodsInfo.price)}}</div>
+                        <div>
+                            <!-- 商品数量 -->
+                            <div class="num">
+                                <button class="numRemove" (click)="numRemove()">-</button>
+                                <span>
+                                    <input type="number" bindon-ngModel="num" oninput="if(value.length>4)value=value.slice(0,4)"/>
+                                </span>
+                                <button class="numAdd" (click)="numAdd()">+</button>
+                            </div>
+                        </div>
+                    </div>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+        <ion-grid class="payScore" style="background:#fff;">
+            <ion-row>
+                <ion-col>共需支付:<span class="score">￥{{commonService.toNumber((scorebuy*1)*(num*1))}}</span></ion-col>
+            </ion-row>
+        </ion-grid>
+        <ion-list no-margin class="payInfo">
+            <ion-item no-padding style="border-top:none;">
+                <ion-label fixed>
+                    联系人
+                </ion-label>
+                <ion-input maxlength="20" bindon-ngModel="userData.name"  placeholder="会员姓名" type="text"></ion-input>
+            </ion-item>
+            <ion-item no-padding>
+                <ion-label fixed>
+                    联系电话
+                </ion-label>
+                <ion-input maxlength="11" bindon-ngModel="userData.phone"  placeholder="电话" type="text"></ion-input>
+            </ion-item>
+            <ion-item no-padding>
+                <ion-label fixed>
+                    所在省份
+                </ion-label>
+                <ion-select #item1 [(ngModel)]="province" (ionChange)="selectProvi(item1)" okText="确认" cancelText="取消">
+                  <ion-option *ngFor="let itm of provinces" value="{{itm.value}}">{{itm.text}}</ion-option>
+                </ion-select>
+            </ion-item>
+            <ion-item no-padding>
+                <ion-label fixed>
+                    所在城市
+                </ion-label>
+                <ion-select #item2 [(ngModel)]="city"  okText="确认" (ionChange)="selectCity(item2)" cancelText="取消">
+                  <ion-option *ngFor="let itm of citys" value="{{itm.value}}">{{itm.text}}</ion-option>
+                </ion-select>
+            </ion-item>
+            <ion-item no-padding>
+                <ion-label fixed>
+                    所在区域
+                </ion-label>
+                <ion-select #item3 [(ngModel)]="county" okText="确认" (ionChange)="selectCounty(item3)" cancelText="取消">
+                  <ion-option *ngFor="let itm of countys" value="{{itm.value}}">{{itm.text}}</ion-option>
+                </ion-select>
+            </ion-item>
+            <ion-item no-padding style="border-bottom:none;">
+                <ion-label fixed>
+                    具体地址
+                </ion-label>
+                <ion-input maxlength="20"  bindon-ngModel="userData.addr" placeholder="具体地址" type="text"></ion-input>
+            </ion-item>
+        </ion-list>
+        <div padding>
+            <button (click)="buyGoods()" full ion-button>确认订单去支付</button>
+        </div>
+    </div>
+
+    <!--支付界面-->
+    <ion-grid *ngIf="isShowPayPw" class="payPage">
+        <ion-row>
+            <ion-col style="flex: 0 0 25%;max-width: 25%;"><img src="{{imgUrl}}{{goodsInfo.icon}}" /></ion-col>
+            <ion-col style="flex: 0 0 75%;max-width: 75%;">
+                <div>{{goodsInfo.name}}</div>
+                <div>
+                    <div class="score">￥{{commonService.toNumber(goodsInfo.price)}}</div>
+                </div>
+            </ion-col>
+        </ion-row>
+        <ion-row style="padding:5px;" class="payScore">
+            <ion-col>共需支付:<span class="score">￥{{commonService.toNumber(scorebuy*num)}}</span></ion-col>
+        </ion-row>
+        <!-- 选择支付方式 -->
+        <ion-list radio-group class="payWay">
+            <ion-list-header text-left no-padding>
+                选择支付方式
+            </ion-list-header>
+            <ion-item no-padding>
+                <ion-label style="border:0;">微信支付</ion-label>
+                <ion-radio (click)="changeType(2)" checked="true" value="2"></ion-radio>
+            </ion-item>
+            <!-- <ion-item no-padding style="border-bottom:none;">
+                <ion-label style="border:0;">支付宝支付</ion-label>
+                <ion-radio (click)="changeType(1)" value="1"></ion-radio>
+            </ion-item> -->
+        </ion-list>
+        <!-- 确认支付 -->
+        <ion-row>
+            <ion-col text-center>
+                <button style="width:100%;" (click)="submitData()" ion-button>确定支付</button>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+
+</ion-content>

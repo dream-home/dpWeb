@@ -1,0 +1,75 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  </head>
+  <form id="myForm" action="http://m.yanbaocoin.cn/m/scan/wxlogin" method="post">
+    <input type="hidden" name="type" id="type"/>
+    <input type="hidden" name="index" id="index"/>
+    <input type="hidden" name="storeId" id="storeId"/>
+    <input type="hidden" name="storeUserId" id="storeUserId"/>
+    <input type="hidden" name="uid" id="uid"/>
+  </form>
+</html>
+<script type="text/javascript">
+
+    window.onload=function(){
+        getOpenId();
+    }
+    function getOpenId(){
+
+        var type = getUrlParam('type');
+        var index = getUrlParam('index');
+        var storeId = getUrlParam('storeId');
+        var storeUserId = getUrlParam('storeUserId');
+        var uid = getUrlParam('uid');
+       if(isWeCat()){
+         $("#type").val(type);
+         $("#index").val(index);
+         $("#storeId").val(storeId);
+         $("#storeUserId").val(storeUserId);
+         $("#uid").val(uid);
+         $("#myForm").submit();
+            //http://m.yanbaocoin.cn/m/scan/wxlogin?uid=200331&storeId=FB5937DBB58E45488D38228FC01E4928&index=4&type=2
+            // window.location.href = "http://m.yanbaocoin.cn/m/scan/wxlogin?uid="+uid+"&storeId="+storeId+"&index="+index+"&type="+type+"&storeUserId="+storeUserId;
+        }else{
+           window.location.href = "http://m.yanbaocoin.cn/h5/?uid="+uid+"&storeId="+storeId+"&index="+index+"&type="+type+"&storeUserId="+storeUserId;
+        }
+
+    }
+
+    // function post(url,params) {
+    //     var temp = document.createElement("form");
+    //     temp.action = url;
+    //     temp.method = "post";
+    //     for (var x in params) {
+    //         var opt = document.createElement("textarea");
+    //         opt.name = x;
+    //         opt.value = params[x];
+    //         // alert(opt.name)
+    //         temp.appendChild(opt);
+    //     }
+    //     document.body.appendChild(temp);
+    //     temp.submit();
+    //     return temp;
+    // }
+
+    function isWeCat(){
+        var ua = window.navigator.userAgent.toLowerCase();
+        if(ua.match(/MicroMessenger/i) == 'micromessenger'){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    function getUrlParam(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+        var r = window.location.search.substr(1).match(reg);  //匹配目标参数
+
+        if (r != null) return unescape(r[2]);
+        return null; //返回参数值
+    }
+</script>

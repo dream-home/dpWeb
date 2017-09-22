@@ -1,0 +1,16 @@
+page-serviceAgreement {
+    .agreementTitle{
+        background:#fff;
+        margin-top:5px;
+        border-bottom:2px rgb(229, 229, 229) solid;
+        ion-col{
+            padding:5px 10px !important;
+        }
+    }
+    .agreementInfo{
+        background:#fff;
+        ion-col{
+            padding:5px 10px !important;
+        }
+    }
+}

@@ -1,0 +1,52 @@
+<ion-header>
+    <ion-toolbar color="yanbao">
+        <!-- <ion-buttons start>
+          <button ion-button icon-only (click)="goToBackPage()">
+            <ion-icon name="arrow-back"></ion-icon>
+          </button>
+        </ion-buttons> -->
+        <ion-title center>支付成功</ion-title>
+    </ion-toolbar>
+</ion-header>
+<ion-content style="background:rgb(229, 229, 229);">
+  <ion-grid  no-padding>
+      <ion-row class="paySuccess">
+          <ion-col *ngIf="shopData!=null" no-padding>
+              <ion-row class="paySuccessImg">
+                  <ion-col>
+                      <img src="{{shopData.icon}}"/>
+                      <span>{{shopData.storeName}}</span>
+                  </ion-col>
+              </ion-row>
+          </ion-col>
+      </ion-row>
+      <ion-row class="paySuccessText">
+          <ion-col no-padding>
+              消费付款成功
+          </ion-col>
+      </ion-row>
+      <ion-row class="paySuccessAmount">
+          <ion-col no-padding>
+              +{{commonService.toNumber(payScore)}}
+          </ion-col>
+      </ion-row>
+      <!-- <ion-row class="logoImg">
+          <ion-col>
+              <span>斗拍下载&nbsp;&nbsp;点击下面按钮进入下载</span>
+              <img src="assets/images/dp.png"/>
+          </ion-col>
+      </ion-row>
+      <ion-row class="downLoad">
+          <ion-col>
+              <button *ngIf="osType==0">{{downloadUrl.androidAppUrl}}
+                  <a href="{{datas.androidAppUrl}}">安卓下载</a>
+              </button>
+          </ion-col>
+          <ion-col>
+              <button *ngIf="osType==1">{{downloadUrl.iosAppUrl}}
+                  <a href="{{datas.iosAppUrl}}">IOS下载</a>
+              </button>
+          </ion-col>
+      </ion-row> -->
+  </ion-grid>
+</ion-content>

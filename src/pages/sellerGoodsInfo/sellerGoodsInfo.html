@@ -1,0 +1,107 @@
+<ion-header>
+  <ion-toolbar color="yanbao">
+    <ion-buttons start>
+      <button ion-button icon-only (click)="goToHomePage()" *ngIf="commonService.pageBack == true">
+        <ion-icon name="arrow-back"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title center>商品详情</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content style="background:#e5e5e5;">
+  <div *ngIf="goodsInfo">
+    <ion-grid no-padding style="background:#e5e5e5;">
+        <ion-row>
+            <ion-slides loop="true" pager="true">
+                <ion-slide *ngFor="let img of goodsImages">
+                    <div>
+                        <img style="width:100%" class="slideImg" src="{{img.path}}" (click)="showImg(img.path)">
+                    </div>
+                </ion-slide>
+            </ion-slides>
+        </ion-row>
+        <ion-row class="rowBgcolor" style="padding-left:5px;">
+            <ion-col class="goodsName" style="padding:5px 0 5px 0;">
+                <span>{{goodsInfo.name}}</span>
+            </ion-col>
+        </ion-row>
+        <ion-row class="rowBgcolor" style="padding-left:5px;">
+            <ion-col width-66 class="buyPrice" style="padding:5px 0 5px 0;">
+               <span class="price">￥{{goodsInfo.price}}</span>
+                <span class="originalPrice">门市价：￥{{goodsInfo.originalPrice}}元</span>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+
+    <div *ngIf="goodsInfo" no-padding class="gInfo">
+        <ion-grid no-padding *ngIf="goodsInfo" style="margin:3px 0 0 0;">
+            <ion-row class="rowBgcolor goodsInfoTitle" style="padding-left:5px; " text-center>
+                <ion-col no-padding>商品详情</ion-col>
+            </ion-row>
+        </ion-grid>
+         <ion-grid no-margin no-padding *ngIf="goodsInfo" style="background:#fff;padding-bottom: 60px;">
+            <ion-row  *ngFor="let item of GoodDetails">
+                <ion-col *ngIf="item.type==1" class="goodsInfoCont">
+                   <p>{{item.content}}</p>
+                </ion-col>
+                <ion-col *ngIf="item.type==2&&item.content!=null" class="goodsInfoImg">
+                     <img
+                     src="{{item.content.substring(0,7)=='http://'?item.content+'-goodsdetail':item.content}}">
+                </ion-col>
+            </ion-row>
+           <ion-row  *ngIf="GoodDetails.length==0" class="nullOfInfo">
+                <ion-col>
+                   <p>该商品暂无详细介绍</p>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+        <!-- <ion-grid no-padding>
+            <ion-row>
+                <ion-col style="color:#FF651E;padding:5px 0 5px 0;text-align:center;font-size:16px;">
+                    商品详情
+                </ion-col>
+            </ion-row>
+            <ion-row style="background-color:#fff;border-top:1px solid #DFDFDF;border-bottom:1px solid #DFDFDF;padding-left:5px;">
+                <ion-col style="padding:5px 0 5px 0;">
+                    {{goodsInfo.detail}}
+                </ion-col>
+            </ion-row>
+        </ion-grid> -->
+    </div>
+  </div>
+  <div style="width:100%;height:100%;background:#e5e5e5;position:absolute;top:0;" *ngIf="msg=='0'">
+    <ion-row style="margin-top:150px;">
+      <ion-col text-center>
+        <img style="width:180px;" src="assets/images/null.png"/>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col text-center>您所查看的商品不存在~~!!</ion-col>
+    </ion-row>
+  </div>
+</ion-content>
+
+<ion-footer class="buy_auction" *ngIf="goodsInfo">
+    <ion-toolbar no-padding>
+        <ion-row>
+                <ion-col no-padding style="flex: 0 0 15%;max-width: 15%;">
+                    <ion-row>
+                        <ion-col no-padding class="store">
+                            <button (click)="gotoShop(goodsInfo.storeId)">
+                                <img src="assets/images/store.png">
+                                <p>店铺</p>
+                            </button>
+                        </ion-col>
+                    </ion-row>
+                </ion-col>
+                <!-- 根据库存禁用直接购买 -->
+                <ion-col no-padding class="buy" style="flex: 0 0 85%;max-width: 85%;" *ngIf='goodsInfo.stock>0' >
+                    <button (click)="gotobuyGoods(goodsInfo.id,goodsInfo.price,$event,1)" >直接购买</button>
+                </ion-col>
+                <ion-col no-padding class="buy" style="flex: 0 0 85%;max-width: 85%;" *ngIf='goodsInfo.stock==0'>
+                    <button [disabled]="true" (click)="gotobuyGoods(goodsInfo.id,goodsInfo.price,$event,1)" >直接购买</button>
+                </ion-col>
+            </ion-row>
+    </ion-toolbar>
+</ion-footer>

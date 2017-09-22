@@ -1,0 +1,63 @@
+page-paySuccess{
+    .paySuccess{
+        background:url('../assets/images/pack.png');
+        background-size:100% 100%;
+        height:120px;
+        .paySuccessImg{
+            height:100px;
+            ion-col{
+                text-align: center;
+                img{
+                    height:80px;
+                    border-radius: 50%;
+                }
+                span{
+                  height:20px;
+                  color:#fff;
+                  display: block;
+                }
+            }
+        }
+    }
+    .paySuccessText{
+        margin-top:5px;
+        background:#fff;
+        font-size: 16px;
+        padding:20px 0 5px 0 !important;
+        text-align: center;
+    }
+    .paySuccessAmount{
+        background:#fff;
+        font-size: 38px;
+        padding:10px 0 !important;
+        text-align: center;
+    }
+    .logoImg{
+        background:#fff;
+        margin-top:5px;
+        ion-col{
+            text-align: center;
+            span{
+                margin-top:20px;
+                display: block;
+            }
+            img{
+                width:120px;
+            }
+        }
+    }
+    .downLoad{
+        background:#fff;
+        margin-top:5px;
+        ion-col{
+            text-align: center;
+            padding:10px 5px !important;
+            button{
+                background:#FF651E;
+                padding:10px 15px;
+                border-radius: 5px;
+                color:#fff;
+            }
+        }
+    }
+}

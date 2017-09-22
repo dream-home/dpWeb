@@ -1,0 +1,109 @@
+<ion-header>
+    <ion-toolbar color="yanbao">
+        <ion-buttons start>
+          <button ion-button icon-only (click)="goToBackPage()">
+            <ion-icon name="arrow-back"></ion-icon>
+          </button>
+        </ion-buttons>
+        <ion-title center>线下收款</ion-title>
+    </ion-toolbar>
+</ion-header>
+<ion-content>
+      <div *ngIf="shopData!=null">
+          <ion-grid no-padding>
+              <ion-row class="payMent">
+                  <ion-col no-padding>
+                      <ion-row class="collectionImg">
+                          <ion-col>
+                              <img src="{{shopData.icon}}"/>
+                              <span>{{shopData.storeName}}</span>
+                          </ion-col>
+                      </ion-row>
+                  </ion-col>
+              </ion-row>
+              <ion-row class="collectionSum">
+                  <ion-col no-padding text-center>
+                      ￥<input bindon-ngModel="paymentAmount" type="number" placeholder="请输入付款金额">
+                  </ion-col>
+              </ion-row>
+              <ion-row class="warning">
+                  <ion-col no-padding>
+                      警示！请警惕网上陌生人之间的信用卡套现行为，可能导致资金损失，请谨慎操作！一切后果有持卡人本人承担！请合理用卡，拒绝信用卡套现！
+                  </ion-col>
+              </ion-row>
+              <!-- 选择支付方式 -->
+              <ion-list radio-group class="payWay">
+                  <ion-row class="payWayTitle">
+                      <ion-col>支付方式</ion-col>
+                  </ion-row>
+                  <ion-row class="payWayInfo">
+                      <ion-col no-padding *ngIf="showPayType == '3'">
+                          <img src="assets/images/doupai.png"/>
+                          <span>斗拍支付</span>
+                      </ion-col>
+                      <ion-col no-padding *ngIf="showPayType == '5'">
+                          <img src="assets/images/wechat.png"/>
+                          <span>微信支付</span>
+                      </ion-col>
+                      <ion-col no-padding *ngIf="showPayType == '4'">
+                          <img src="assets/images/alipay.png"/>
+                          <span>支付宝支付</span>
+                      </ion-col>
+                      <ion-col no-padding>
+                          <span>√</span>
+                      </ion-col>
+                  </ion-row>
+              </ion-list>
+          </ion-grid>
+      </div>
+      <!--支付界面-->
+        <ion-grid *ngIf="isShowPayPw">
+            <ion-row>
+                <ion-col text-center>
+                    <h3>请输入6位支付密码</h3>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col text-center>
+                    <span color="yanbao">需要支付：{{commonService.toNumber(paymentAmount)}}元</span>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col>
+                    <ion-list no-padding no-margin>
+                        <ion-item>
+                            <ion-label fixed>
+                                支付密码
+                            </ion-label>
+                            <ion-input maxlength="6" clearInput="true" bindon-ngModel="payPwd" placeholder="输入6位数" type="password"></ion-input>
+                        </ion-item>
+                    </ion-list>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col width-50 text-right>
+                    <button [disabled]="payPwd==null || payPwd.length<6 || isDisable" style="height:32px;margin-right:20px;" id="okBtn" (click)="payFor()" ion-button>确定</button>
+                </ion-col>
+                <ion-col width-50>
+                    <button style="height:32px;margin-left:20px;"  ion-button (click)="cancel()" color="light">取消</button>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+        <div *ngIf="!isShowPayPw" class="footer">
+            <ion-grid no-padding>
+                <ion-row class="agreement">
+                    <ion-col no-padding>
+                        <ion-checkbox *ngIf="checkStatus==true" checked="true" (click)="check(1)"></ion-checkbox>
+                        <ion-checkbox *ngIf="checkStatus==false" checked="false" (click)="check(0)"></ion-checkbox>
+                        阅读并同意<mark (click)="ServiceAgreementPage()">《斗拍二维码服务协议》</mark>
+                    </ion-col>
+                </ion-row>
+                <ion-row class="submit">
+                    <ion-col no-padding>
+                        <button *ngIf="checkStatus==true" (click)="payFor()">确认支付</button>
+                        <button *ngIf="checkStatus==false" (click)="payFor()" [disabled]="true">确认支付</button>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </div>
+</ion-content>

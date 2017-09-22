@@ -1,0 +1,112 @@
+<ion-header>
+    <ion-toolbar color="yanbao" text-center>
+        <span *ngIf="shopData" style="font-size: 1.7rem; color:#fff; font-weight: 600; line-height: 36px;
+        display:block;margin: 0 auto; width: 100%; height: 36px; overflow: hidden; text-overflow: ellipsis;    white-space: nowrap;"> {{shopData.storeName}}</span>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div *ngIf='shopData'>
+    <!-- 轮播图片 -->
+    <div style="position: relative;">
+        <ion-slides *ngIf="!showCodePanel" style="height:300px;" loop="true" pager="true">
+            <ion-slide *ngFor="let img of icons">
+                <div>
+                    <img style="width:100%" class="slideImg" src="{{img.path}}" (click)="showImg(img.path)">
+                </div>
+            </ion-slide>
+        </ion-slides>
+    </div>
+    <ion-grid no-padding>
+        <ion-segment [(ngModel)]="pet" mode="md">
+            <ion-segment-button value="all">
+            全部商品
+            </ion-segment-button>
+            <ion-segment-button value="info">
+            店铺详情
+            </ion-segment-button>
+        </ion-segment>
+        <div *ngIf='shopData' [ngSwitch]="pet" no-padding style="background:#fff;">
+            <ion-list *ngSwitchCase="'all'" class="allShop">
+                <div class="showGoods" *ngIf="!showCodePanel" >
+                    <ion-grid no-padding no-margin>
+                        <ion-row  style=" padding-bottom:10px;">
+                            <ion-col col-6  *ngFor="let itm of items" class="ioncol" (click)="showGoodsInfo(itm.id)">
+                                <dl>
+                                    <dt text-center>
+                                        <img  src="{{itm.icon}}"/>
+                                    </dt>
+                                    <dd text-left>
+                                        <p no-padding  class="name_product">
+                                            {{itm.name}}
+                                        </p>
+                                        <p no-padding no-margin>
+                                            <span style="color:#f7689e;font-size:14px;">￥{{itm.price}}</span>
+                                            <s style="color:#666;font-size:10px; margin-left:5px;">￥{{itm.originalPrice}}</s>
+                                        </p>
+                                        <button ion-button small full  (click)="gotobuyGoods(itm.id,itm.price,$event,1)">立即购买</button>
+                                    </dd>
+                                </dl>
+                            </ion-col>
+                        </ion-row>
+                    </ion-grid>
+                </div>
+            </ion-list>
+            <ion-list *ngSwitchCase="'info'" style="padding:5px;">
+                <ion-row>
+                    <ion-col width-50 >
+                        <span>电话：{{shopData.phone}}</span>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col >
+                        地址：{{shopData.province+shopData.city+shopData.county+shopData.addr}}
+                    </ion-col>
+                </ion-row>
+                <p style="margin-top:10px;">{{shopData.detail}}</p>
+
+            </ion-list>
+        </div>
+
+    </ion-grid>
+  </div>
+  <div style="width:100%;height:100%;background:#e5e5e5;position:absolute;top:0;" *ngIf="msg=='0'">
+    <ion-row style="margin-top:150px;">
+      <ion-col text-center>
+        <img style="width:180px;" src="assets/images/null.png"/>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col text-center>您所查看的店铺不存在~~!!</ion-col>
+    </ion-row>
+  </div>
+    <!-- <ion-grid *ngIf='shopData' no-padding>
+        <ion-row style="border-bottom:solid 1px #DFDFDF;">
+            <ion-col padding-vertical text-center style="background-color:#EFEFEF;">
+                <strong>店铺介绍</strong>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col>
+                {{shopData.detail}}
+            </ion-col>
+        </ion-row>
+    </ion-grid> -->
+    <div *ngIf="showCodePanel">
+        <p color="danger">商家设置了邀请码，输入最新邀请码！</p>
+        <ion-list>
+            <ion-item>
+                <ion-label fixed>
+                    <span style="color:red;">*</span>
+                    邀请码
+                </ion-label>
+                <ion-input maxlength="6" bindon-ngModel="inviteCode" placeholder="输入邀请码" type="text"></ion-input>
+            </ion-item>
+        </ion-list>
+        <button (click)="submitCodeData()" no-margin ion-button full>进入</button>
+        <p>温馨提示：本应用提供一个商家促销的平台，对于商家商品质量，无法保障，请进入商家店铺会员小心操作，对于不良商家请会员，积极举报！</p>
+    </div>
+    <ion-infinite-scroll *ngIf="showScroll" (ionInfinite)="doInfinite($event)">
+        <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+</ion-content>

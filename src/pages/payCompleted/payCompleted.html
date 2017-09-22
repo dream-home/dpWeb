@@ -1,0 +1,68 @@
+<ion-header>
+    <ion-toolbar color="yanbao">
+        <ion-buttons start>
+          <button ion-button icon-only (click)="goToBackPage()">
+            <ion-icon name="arrow-back"></ion-icon>
+          </button>
+        </ion-buttons>
+        <ion-title center>支付完成</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content style="background:rgb(229, 229, 229);">
+  <div *ngIf="orderInfo">
+  <ion-grid style="background:#fff;">
+    <ion-row>
+      <ion-col>收货人：{{orderInfo.userName}}</ion-col>
+      <ion-col>电话：{{orderInfo.phone}}</ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>收货地址：{{orderInfo.addr}}</ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-grid style="background:#fff;margin-top:5px;">
+    <ion-row style="border-bottom:1px #ccc solid;">
+      <ion-col>订单详情</ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col style="flex: 0 0 25%;max-width: 25%;">
+        <img src="{{orderInfo.icon}}"/>
+      </ion-col>
+      <ion-col style="flex: 0 0 75%;max-width: 75%;">
+        <ion-row>
+          <ion-col>{{orderInfo.goodsName}}</ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>价格：￥{{commonService.toNumber(scoreBuy)}}</ion-col>
+          <ion-col>数量：{{num}}件</ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>支付：￥{{commonService.toNumber(scoreBuy*num)}}</ion-col>
+        </ion-row>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>商家店铺：{{orderInfo.storeName}}</ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>订单编号：{{orderInfo.orderNo}}</ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>下单时间：{{commonService.dateFormatLong(orderInfo.createTime,'yyyy-MM-dd HH:mm')}}</ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-grid style="background:#fff;margin-top:5px;">
+    <ion-row>
+      <ion-col text-center style="font-size:12px;">等待商家发货</ion-col>
+    </ion-row>
+    <!-- <ion-row>
+      <ion-col text-center style="font-size:12px;">下载APP查看订单详情</ion-col>
+    </ion-row> -->
+  </ion-grid>
+  <ion-row style="margin-top:20px;">
+    <ion-col text-center>
+      <button ion-button style="width:95%;" (click)="gotoHomePage()">确定</button>
+    </ion-col>
+  </ion-row>
+</div>
+</ion-content>

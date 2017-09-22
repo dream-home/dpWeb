@@ -1,0 +1,72 @@
+page-home {
+    .showGoods{
+        background-color:#EFEFEF;
+        padding: 0px 0px 5px 0;
+    }
+    .goodsInfo{
+        border-top: 1px solid #DFDFDF;
+        border-bottom: 1px solid #DFDFDF;
+        margin-bottom: 5px;
+        background-color: #FFFFFF;
+    }
+    .collect{
+        .addCollect,.removeCollect{
+            background:none;
+            border:0;
+            color:#fff;
+            margin:0;
+            padding:0;
+            height:30px;
+            img{
+                height:15px;
+            }
+            p{
+                font-size:1rem;
+                margin-top:2px;
+            }
+        }
+    }
+    .showGoods{
+        padding:0;
+    }
+
+    .list-ios{
+        margin:0;
+    }
+    .goodsIf{
+        .goodsName{
+            color:#000;
+            font-size:16px;
+            font-weight:bold;
+            padding:5px 0 5px 0;
+            text-overflow: -o-ellipsis-lastline;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow:ellipsis;
+        }
+        .goodsPrice{
+            span{
+                font-size:19px;
+            }
+        }
+        .goodsAuction{
+            color:#ff3300;
+        }
+        .goodsSendEP{
+            padding:15px 0 0 0;
+            font-size:14px;
+        }
+    }
+    .ioncol{ background:#f4f4f4; }
+    .ioncol:nth-child(odd) dl{margin:0 5px 0 0;margin-top: 10px;}
+    .ioncol:nth-child(even) dl{margin:0 0 0 5px;margin-top: 10px;}
+    .ioncol dl{padding:10px 5px 5px 5px; background: #fff;}
+    .ioncol dl dd{margin: 0;}
+    .ioncol dl img{width:90%; height:auto;}
+    .ioncol .name_product{ margin: 0; text-align: left; color: #222; font-size: 1.4rem;
+       overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            height: 20px; line-height: 20px;
+    }
+}
